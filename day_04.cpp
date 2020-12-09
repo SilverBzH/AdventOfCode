@@ -9,22 +9,17 @@ int main() {
     for (auto& line : input_day_04) {
         stringstream ss(line);
         string tmp;
-        vector<string> id;
         if (line == "") {
             if (nb_valid_id == NB_ID_NEEDED)
                 nb_passport_valid++;
             nb_valid_id = 0;
             continue;
         }
-        while(getline(ss, tmp, ' ')) {
-            stringstream tmp_ss(tmp);
-            string id;
-            getline(tmp_ss, id, ':');
-            if (id == "byr" || id == "iyr" || id == "eyr" ||
-                id == "hgt" || id == "hcl" || id == "ecl" || 
-                id == "pid") {
-                    nb_valid_id++;
-            }
+        smatch match_id;
+        while(regex_search(line, match_id, regex("([a-z]+):#?[0-9a-z]+"))) {
+            if (regex_match(string(match_id[1]), regex("byr|iyr|eyr|hgt|hcl|ecl|pid")))
+                nb_valid_id++;
+            line = match_id.suffix();
         }
     }
     if (nb_valid_id == NB_ID_NEEDED)
