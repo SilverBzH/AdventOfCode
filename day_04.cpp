@@ -27,14 +27,3 @@ int main() {
     cout << nb_passport_valid << endl;
     return 0;
 }
-
-
-
-    // byr (Birth Year)
-    // iyr (Issue Year)
-    // eyr (Expiration Year)
-    // hgt (Height)
-    // hcl (Hair Color)
-    // ecl (Eye Color)
-    // pid (Passport ID)
-    // cid (Country ID)
