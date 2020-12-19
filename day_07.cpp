@@ -1,29 +1,59 @@
 #include "solve.h"
 
-void parse(vector<pair<string, map<string, int>>>& bags);
+typedef map<string, set<string>> bag_map;
+const string SHINY_GOLD = "shiny gold ";
+
+void parse(bag_map& bags);
+bool explore_bags(bag_map& bags, string main_bag);
 
 int main () {
-    vector<pair<string, map<string, int>>> bags;
+    bag_map bags;
+    set<string> counter;
     parse(bags);
-    for (auto& bag : bags) {
-        cout << "------" << endl;
-        cout << "main bag: " << bag.first << endl;
-        for (auto& aux_bag : bag.second) cout << aux_bag.second << " " << aux_bag.first << endl;
+    for (auto& main_bag : bags) {
+        for (auto& aux_bag : main_bag.second) {
+            if (counter.find(main_bag.first) == counter.end() && explore_bags(bags, aux_bag)) {
+                counter.emplace(main_bag.first);
+            }
+        }
     }
+    cout << "answer: " << counter.size() << endl;
 }
 
-void parse(vector<pair<string, map<string, int>>>& bags) {
-    for (auto& item : input_day_07_example) {
+bool explore_bags(bag_map& bags, string main_bag) {
+    if (main_bag == SHINY_GOLD)
+        return true;
+    if (bags.find(main_bag) == bags.end()) {
+        return false;
+    } else {
+        for (auto& aux_bag : bags[main_bag]) {
+            if (aux_bag == SHINY_GOLD)
+                return true;
+        }
+        for (auto& aux_bag : bags[main_bag]) {
+            if(explore_bags(bags, aux_bag))
+                return true;
+        }
+    }
+    return false;
+}
+
+void parse(bag_map& bags) {
+    for (auto& item : input_day_07) {
         smatch m;
-        regex e("(([a-z]+ ){2})bags contain (no|[0-9]+) (([a-z]+ ){1,2})[a-z]+.( ([0-9]+) (([a-z]+ ){2}).*?)?");
-        regex_search(item, m, e);
-        string main_bag = m[1];
-        map<string, int> aux_bags;
-        if (regex_match(string(m[3]), regex("[0-9]")))
-            aux_bags.emplace(m[4], stoi(m[3]));
-        if (regex_match(string(m[7]), regex("[0-9]")))
-            aux_bags.emplace(m[8], stoi(m[7]));
-        pair<string, map<string, int>> total_bag(main_bag, aux_bags);
-        bags.emplace_back(total_bag);
+        if (regex_match(item, regex(".*no other.*")))
+            continue;
+        regex e("((?:[a-z]+ )+)(?:bags?)");
+        vector<string> parsed_bags;
+        while (regex_search(item, m, e)) {
+            parsed_bags.emplace_back(string(m[1]));
+            item = m.suffix();
+        }
+        string main_bag = parsed_bags[0];
+        set<string> aux_bags;
+        for (int i=1 ; i < parsed_bags.size() ; i++) {
+            aux_bags.emplace(parsed_bags[i]);
+        }
+        bags.emplace(main_bag, aux_bags);
     }
 }
