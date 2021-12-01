@@ -2,6 +2,22 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::process::exit;
 
+pub trait Solve {
+    fn solve(input_path: &str) {
+        let input = read_input(input_path);
+        println!(
+            "{}: {} || {}",
+            Self::name(),
+            Self::part_one(input.clone()),
+            Self::part_two(input)
+        )
+    }
+
+    fn name() -> String;
+    fn part_one(input: String) -> String;
+    fn part_two(input: String) -> String;
+}
+
 pub fn read_input(file_path: &str) -> String {
     let mut input = String::new();
     let mut file = File::open(file_path).unwrap_or_else(|err| {

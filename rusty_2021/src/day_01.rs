@@ -1,12 +1,30 @@
-pub fn solve(input: String) {
-    let input = input.lines().map(|m| m.parse::<usize>().unwrap()).collect::<Vec<usize>>();
-    solve0(input.clone(), 2);
-    solve0(input, 4);
+use crate::lib::Solve;
+
+pub struct Day1 {}
+
+impl Day1 {
+    fn solve(input: String, size: usize) -> String {
+        input
+            .lines()
+            .map(|m| m.parse().unwrap())
+            .collect::<Vec<usize>>()
+            .windows(size)
+            .filter(|m| m.last() > m.first())
+            .count()
+            .to_string()
+    }
 }
 
-fn solve0(input: Vec<usize>, size: usize) {
-    println!(
-        "Day1: {}",
-        input.windows(size).filter(|m| m.last() > m.first()).count()
-    )
+impl Solve for Day1 {
+    fn name() -> String {
+        "Sonar Sweep".into()
+    }
+
+    fn part_one(input: String) -> String {
+        Day1::solve(input, 2)
+    }
+
+    fn part_two(input: String) -> String {
+        Day1::solve(input, 4)
+    }
 }
