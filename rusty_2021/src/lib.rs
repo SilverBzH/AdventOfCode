@@ -4,16 +4,14 @@ use std::process::exit;
 
 pub fn read_input(file_path: &str) -> String {
     let mut input = String::new();
-    let mut file =
-        File::open(file_path).unwrap_or_else(|err| {
-            eprintln!("Failed to open file: {}", err);
-            exit(1);
-        });
-    file.read_to_string(&mut input)
-        .unwrap_or_else(|err| {
-            eprintln!("Failed to read file: {}", err);
-            exit(1);
-        });
+    let mut file = File::open(file_path).unwrap_or_else(|err| {
+        eprintln!("Failed to open file: {}", err);
+        exit(1);
+    });
+    file.read_to_string(&mut input).unwrap_or_else(|err| {
+        eprintln!("Failed to read file: {}", err);
+        exit(1);
+    });
     input
 }
 
