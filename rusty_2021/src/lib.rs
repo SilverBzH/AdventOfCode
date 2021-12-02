@@ -35,7 +35,6 @@ mod test {
 
     #[test]
     fn input_day01_2020() {
-        // let inputi: String = ["1721", "979", "366", "299", "675", "1456"];
         let input_test: String = "1721\n979\n366\n299\n675\n1456\n".to_string();
         let input = super::read_input("input/input_day01_2020.txt");
 
