@@ -6,7 +6,6 @@ impl Day3 {
     fn solve(input: String) -> String {
         let len: usize = input.lines().peekable().peek().unwrap().len();
         let mut counter: Vec<i8> = vec![0; len];
-        let mut gamma: Vec<u8> = Vec::new();
         for diag in input.lines() {
             let digit: Vec<char> = diag.chars().collect();
             for i in 0..len {
@@ -17,13 +16,14 @@ impl Day3 {
                 }
             }
         }
-        for c in counter {
-            if c > 0 {
+        let gamma: Vec<u8> = counter.iter().fold(Vec::new(), |mut gamma, c| {
+            if *c > 0 {
                 gamma.push(1);
             } else {
                 gamma.push(0);
             }
-        }
+            gamma
+        });
         let epsilon: Vec<u8> = gamma
             .iter()
             .map(|bit| if *bit > 0 { 0 } else { 1 })
