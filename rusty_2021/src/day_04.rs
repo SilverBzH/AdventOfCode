@@ -111,6 +111,80 @@ pub fn solve(input: String) -> String {
     answer.to_string()
 }
 
+pub fn solve2(input: String) -> String {
+    let (scores, mut boards) = parse(input);
+    let mut winning_boards: Vec<(Board, usize)> = Vec::new();
+    for score in scores {
+        if boards.is_empty() {
+            break;
+        }
+        mark_boards(&mut boards, score);
+        let won_index = check_boards2(&boards);
+        for index in won_index.clone() {
+            winning_boards.push((boards[index].clone(), score));
+        }
+
+        boards = boards
+            .iter()
+            .enumerate()
+            .filter(|(index, _)| won_index.iter().find(|i| *i == index).is_none())
+            .map(|(_, b)| b)
+            .cloned()
+            .collect::<Vec<Board>>();
+    }
+
+    let (winning_board, score) = winning_boards.pop().unwrap();
+    let board_sum: usize = winning_board
+        .iter()
+        .map(|line| line.iter().map(|token| token.unwrap_or(0)).sum::<usize>())
+        .sum();
+    let answer = board_sum * score;
+    answer.to_string()
+}
+
+pub fn check_boards2(boards: &Vec<Board>) -> Vec<usize> {
+    let nb_boards = boards.len();
+    let nb_row = boards[0].len();
+    let nb_col = nb_row;
+    let mut mark_row;
+    let mut mark_col;
+    let mut won_index = Vec::new();
+    for i in 0..nb_boards {
+        // Check row
+        for row in 0..nb_row {
+            mark_row = 0;
+            for token in &boards[i][row] {
+                if token.is_none() {
+                    mark_row += 1;
+                } else {
+                    break;
+                }
+                if mark_row == 5 {
+                    println!("PUSH");
+                    won_index.push(i);
+                }
+            }
+        }
+
+        //Check column
+        for col in 0..nb_col {
+            mark_col = 0;
+            for row in 0..nb_row {
+                if boards[i][row][col].is_none() {
+                    mark_col += 1;
+                } else {
+                    break;
+                }
+                if mark_col == 5 {
+                    println!("szxfdcgjvhjb");
+                    won_index.push(i);
+                }
+            }
+        }
+    }
+    won_index
+}
+
 impl Solve for Day4 {
     fn name() -> String {
         "Sonar Sweep".into()
@@ -121,7 +195,6 @@ impl Solve for Day4 {
     }
 
     fn part_two(input: String) -> String {
-        // Day1::solve(input, 4)
-        "".into()
+        solve2(input)
     }
 }
