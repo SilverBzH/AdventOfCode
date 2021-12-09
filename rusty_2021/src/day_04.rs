@@ -160,7 +160,6 @@ pub fn check_boards2(boards: &Vec<Board>) -> Vec<usize> {
                     break;
                 }
                 if mark_row == 5 {
-                    println!("PUSH");
                     won_index.push(i);
                 }
             }
@@ -176,7 +175,6 @@ pub fn check_boards2(boards: &Vec<Board>) -> Vec<usize> {
                     break;
                 }
                 if mark_col == 5 {
-                    println!("szxfdcgjvhjb");
                     won_index.push(i);
                 }
             }

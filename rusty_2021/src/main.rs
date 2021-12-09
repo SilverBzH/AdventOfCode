@@ -5,6 +5,7 @@ mod day_01;
 mod day_02;
 mod day_03;
 mod day_04;
+mod day_05;
 
 fn main() {
     println!("Advent Of Code 11111100101 !");
@@ -12,4 +13,5 @@ fn main() {
     day_02::Day2::solve("input/day_02.txt");
     day_03::Day3::solve("input/day_03.txt");
     day_04::Day4::solve("input/day_04.txt");
+    day_05::Day5::solve("input/day_05.txt");
 }
