@@ -1,3 +1,35 @@
+// Template
+// use crate::lib::Solve;
+
+// pub struct Day7 {}
+
+// impl Day7 {
+//     fn solve(input: String) -> String {
+//         input
+//             .lines()
+//             .map(|m| m.parse().unwrap())
+//             .collect::<Vec<usize>>()
+//             .windows(size)
+//             .filter(|m| m.last() > m.first())
+//             .count()
+//             .to_string()
+//     }
+// }
+
+// impl Solve for Day7 {
+//     fn name() -> String {
+//         "The Treachery of Whales".into()
+//     }
+
+//     fn part_one(input: String) -> String {
+//         Day7::solve(input)
+//     }
+
+//     fn part_two(input: String) -> String {
+//         Day7::solve(input)
+//     }
+// }
+
 use std::fs::File;
 use std::io::prelude::*;
 use std::process::exit;
