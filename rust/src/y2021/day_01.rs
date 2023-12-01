@@ -1,4 +1,4 @@
-use crate::lib::Solve;
+use aoc::Solve;
 
 pub struct Day1 {}
 

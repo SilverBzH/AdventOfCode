@@ -1,4 +1,4 @@
-use crate::lib::Solve;
+use aoc::Solve;
 use std::collections::HashMap;
 
 pub struct Day5 {}
