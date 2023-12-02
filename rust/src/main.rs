@@ -10,6 +10,7 @@ fn main() {
 fn y2023() {
     println!("Advent Of Code 2023 !");
     y2023::day_01::Day1::solve("input/y2023/d1.txt".into());
+    y2023::day_02::Day2::solve("input/y2023/d2.txt".into());
 }
 
 #[allow(dead_code)]

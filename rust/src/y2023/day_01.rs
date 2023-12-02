@@ -26,7 +26,8 @@ impl Day1 {
             "7", "eight", "8", "nine", "9",
         ];
 
-        let calibration_values: Vec<usize> = input.lines()
+        let calibration_values: Vec<usize> = input
+            .lines()
             .map(|line| {
                 let fo = first_occurence(line.into(), &possible_values);
                 let lo = last_occurence(line.into(), &possible_values);
@@ -46,7 +47,7 @@ fn first_occurence(input: String, possible_values: &Vec<&str>) -> String {
         }
         for value in possible_values {
             if input[i..].starts_with(value) {
-                return convert(*value).into()
+                return convert(*value).into();
             }
         }
         i += 1;
@@ -63,7 +64,7 @@ fn last_occurence(input: String, possible_values: &Vec<&str>) -> String {
         for value in possible_values {
             let index = i as usize;
             if input[..=index].ends_with(value) {
-                return convert(*value).into()
+                return convert(*value).into();
             }
         }
         i -= 1;
